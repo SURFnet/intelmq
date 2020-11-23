@@ -653,6 +653,21 @@
             "description": "Parse the ZoneH CSV feed.",
             "module": "intelmq.bots.parsers.zoneh.parser",
             "parameters": {}
+        },
+        "AlertBot": {
+            "description": "AlertTrigger mail parser",
+            "module": "intelmq.bots.parsers.alert.parser",
+            "parameters": {}
+        },
+        "PeakflowBot": {
+            "description": "Peakflow mail parser",
+            "module": "intelmq.bots.parsers.peakflow.parser",
+            "parameters": {}
+        },
+        "AbuseHub": {
+            "description": "AbuseHub mail parser",
+            "module": "intelmq.bots.parsers.abusehub.parser",
+            "parameters": {}
         }
     },
     "Expert": {
@@ -927,6 +942,18 @@
             "parameters": {
                 "overwrite": false
             }
+        },
+        "SURFnet": {
+            "description": "SURFnet test BOT.",
+            "module": "intelmq.bots.experts.surfnet.expert",
+            "parameters": {
+                "allowed_asns": "1101, 1103, 1104, 1125, 1128, 1132, 1133, 1139, 1145, 1161, 1837, 1888, 25182",
+                "unwanted_cidrs": "192.42.116.0/27, 145.220.137.0/24, 192.42.116.41/32, 192.42.119.41/32, 145.220.15.0/24",
+                "unwanted_types": "",
+                "unwanted_identifiers": "afp, netbios, blacklist, ssdp, http, rsync, smb, ftp, vnc, rdp, tftp, ntp, ssl_poodle, ssl_freak, telnet",
+                "unwanted_subtypes": "dnschanger, spam, sinkhole, B54-BASE, spamhaus.org, torstatus.blutmagie.de, spamcannibal.org, tor-node",
+                "auto_promote": ""
+            }
         }
     },
     "Output": {
@@ -1181,6 +1208,24 @@
                 "xmpp_to_server": "<destination server>",
                 "xmpp_to_user": "<destination username>",
                 "xmpp_user": "<xmpp username>"
+            }
+        },
+        "SMTP-OTRS": {
+            "description": "Sends single events via SMTP to OTRS.",
+            "module": "intelmq.bots.outputs.smtp.otrs",
+            "parameters": {
+                "fieldnames": "classification.taxonomy,classification.type,classification.identifier,source.ip,source.asn,source.port",
+                "mail_from": "cert@localhost",
+                "mail_to": "{ev[source.abuse_contact]}",
+                "smtp_host": "localhost",
+                "smtp_password": null,
+                "smtp_port": null,
+                "smtp_username": null,
+                "ssl": false,
+                "starttls": true,
+                "subject": "Incident in your AS {ev[source.asn]}",
+                "text": "Dear network owner,\\n\\nWe have been informed that the following device might have security problems.\\n\\nYour localhost CERT",
+                "warnings": "dns"
             }
         }
     }
